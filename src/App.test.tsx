@@ -4,7 +4,9 @@ import App from './App';
 
 afterEach(cleanup);
 
-test('test', () => {
-  render(<App />);
-  expect(true).toBe(true);
+describe('<App>', () => {
+  test('renders properly', () => {
+    const { queryByRole } = render(<App />);
+    expect(queryByRole('app')).toBeTruthy();
+  });
 });

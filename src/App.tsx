@@ -3,7 +3,7 @@ import { Center, Flex } from '@chakra-ui/react';
 
 function App() {
   return (
-    <Flex direction="column">
+    <Flex role="app" direction="column">
       <Center>
         Hello, world!
       </Center>
