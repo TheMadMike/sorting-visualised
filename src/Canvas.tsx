@@ -8,14 +8,14 @@ const useWindowSize = () : [number, number] => {
     return [dimensions[0], dimensions[1]];
 };
 
-const Canvas = (props: any) => {
+const Canvas = React.forwardRef((props: { scale?: number }, ref: any) => {
     const scale: number = props.scale ? props.scale : 0.5;
     const [windowWidth, windowHeight] = useWindowSize();
 
     return (
-        <canvas role="canvas" width={windowWidth*scale} height={windowHeight*scale}>
+        <canvas id={ref} role="canvas" width={windowWidth*scale} height={windowHeight*scale}>
         </canvas>
     );
-};
+});
 
 export default Canvas;
