@@ -13,7 +13,7 @@ const Canvas = React.forwardRef((props: { scale?: number }, ref: any) => {
     const [windowWidth, windowHeight] = useWindowSize();
 
     return (
-        <canvas id={ref} role="canvas" width={windowWidth*scale} height={windowHeight*scale}>
+        <canvas ref={ref} data-testid="canvas" width={windowWidth*scale} height={windowHeight*scale}>
         </canvas>
     );
 });

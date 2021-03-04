@@ -7,12 +7,12 @@ afterEach(cleanup);
 
 describe('<Canvas>', () => {
     test('renders properly', () => {
-        const { queryByRole } = render(<Canvas />);
-        expect(queryByRole('canvas')).toBeTruthy();    
+        const { queryByTestId } = render(<Canvas />);
+        expect(queryByTestId('canvas')).toBeTruthy();    
     });
     test('adjusts itself to the target device screen size', () => {
-        const { queryByRole } = render(<Canvas scale={0.5}/>);
-        const canvas: HTMLCanvasElement = queryByRole('canvas') as HTMLCanvasElement;
+        const { queryByTestId } = render(<Canvas scale={0.5}/>);
+        const canvas: HTMLCanvasElement = queryByTestId('canvas') as HTMLCanvasElement;
         expect(canvas.width).toBe(0.5*window.innerWidth);
         expect(canvas.height).toBe(0.5*window.innerHeight);
     });
