@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 
-const useWindowSize = (scale: number) : [number, number] => {
-    return [0, 0];
+const useWindowSize = () : [number, number] => {
+    const [dimensions, setDimensions] = useState([0, 0]);
+    useLayoutEffect(() => {
+        setDimensions([window.innerWidth, window.innerHeight]);
+    }, []);
+    return [dimensions[0], dimensions[1]];
 };
 
 const Canvas = (props: any) => {
     const scale: number = props.scale ? props.scale : 0.5;
-    const [width, height] = useWindowSize(scale);
+    const [windowWidth, windowHeight] = useWindowSize();
 
     return (
-        <canvas role="canvas" width={width} height={height}>
-            
+        <canvas role="canvas" width={windowWidth*scale} height={windowHeight*scale}>
         </canvas>
     );
 };
