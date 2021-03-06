@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-import { Box, Center, Flex, Button } from '@chakra-ui/react';
+import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
 import DataChart from './DataChart';
 
 import shuffle from './shuffle';
 
+const generateDataSet = (numberOfElements: number): number[] => {
+  let dataSet: number[] = [];
+  for(let i = 0; i < numberOfElements; ++i) {
+    dataSet.push(i+1);
+  }
+  return dataSet;
+};
+
 function App() {
   const [dataSet, setDataSet] = useState([1, 2, 3]);
 
   return (
-    <Flex role="app" direction="column">
-      <Center>
-        <Box my="5vh" border="2px gray solid">
-          <DataChart dataSet={dataSet}/>
-        </Box>
+    <Flex role="app" direction="column" align="center">
+      <Box my="5vh" border="2px gray solid">
+        <DataChart dataSet={dataSet}/>
+      </Box>
 
-      </Center>
+      Number of elements in the array:
+      <Input my="1vh" maxW="40vw" type="number" placeholder="number of elements"
+        defaultValue={3}
+        onChange={(event) => {
+          const value = parseInt(event.target.value);
+          setDataSet(generateDataSet(value));
+        }} />
 
-      <Center>
-        <Button maxW="30vw" onClick={() => {
-            let toShuffle: number[] = [...dataSet];
-            setDataSet(shuffle(toShuffle));
-          }}>Shuffle data</Button>
-      </Center>
+      <Button maxW="30vw" onClick={() => {
+          let toShuffle: number[] = [...dataSet];
+          setDataSet(shuffle(toShuffle));
+        }}>
+          Shuffle
+      </Button>
+      
     </Flex>
   );
 }
