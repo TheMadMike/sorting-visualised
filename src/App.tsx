@@ -22,7 +22,7 @@ function App() {
         <DataChart dataSet={dataSet}/>
       </Box>
 
-      Number of elements in the array:
+      Number of array elements:
       <Input my="1vh" maxW="40vw" type="number" placeholder="number of elements"
         defaultValue={3}
         onChange={(event) => {
