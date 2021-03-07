@@ -26,7 +26,8 @@ function App() {
       <Input my="1vh" maxW="40vw" type="number" placeholder="number of elements"
         defaultValue={3}
         onChange={(event) => {
-          const value = parseInt(event.target.value);
+          let value = parseInt(event.target.value);
+          value = value > 10000 ? 10000 : value;
           setDataSet(generateDataSet(value));
         }} />
 
