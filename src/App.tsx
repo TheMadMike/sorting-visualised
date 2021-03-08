@@ -3,6 +3,7 @@ import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
 import DataChart from './Components/DataChart';
 import StartStopButton from './Components/StartStopButton';
+import AlgorithmSelect from './Components/AlgorithmSelect';
 
 import shuffle from './shuffle';
 import { generateDataSet } from './Algorithms/utility';
@@ -19,7 +20,7 @@ function App() {
     let algorithmCopy = Object.assign(algorithm);
     algorithmCopy.stepTimeMs = stepTimeMs;
     setAlgorithm(algorithmCopy);
-  }, [stepTimeMs]);
+  }, [stepTimeMs, algorithm]);
 
   return (
     <Flex role="app" direction="column" align="center">
@@ -42,6 +43,10 @@ function App() {
         }}>
           Shuffle
       </Button>
+
+      <AlgorithmSelect onChange={(algorithmName: string) => {
+        setAlgorithm(algorithms.get(algorithmName) as SortingAlgorithm);
+      }}/>
 
       <StartStopButton onClick={
         (data: {shouldBeRunning: boolean}) => {
