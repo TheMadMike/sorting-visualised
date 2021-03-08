@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
-import DataChart from './DataChart';
+import DataChart from './Components/DataChart';
 
 import shuffle from './shuffle';
+import { generateDataSet } from './Algorithms/utility';
 
-const generateDataSet = (numberOfElements: number): number[] => {
-  let dataSet: number[] = [];
-  for(let i = 0; i < numberOfElements; ++i) {
-    dataSet.push(i+1);
-  }
-  return dataSet;
-};
+import SortingAlgorithm from './Algorithms/SortingAlgorithm';
+import algorithms from './algorithms';
 
 function App() {
   const [dataSet, setDataSet] = useState([1, 2, 3]);
+  const [algorithm, setAlgorithm] = useState<SortingAlgorithm>(algorithms.get('BubbleSort') as SortingAlgorithm);
+  const [running, setRunning] = useState(false);
+  const [stepTimeMs, setStepTime] = useState(10);
+
+  useEffect(() => {
+    let algorithmCopy = Object.assign(algorithm);
+    algorithmCopy.stepTimeMs = stepTimeMs;
+    setAlgorithm(algorithmCopy);
+  }, [stepTimeMs]);
 
   return (
     <Flex role="app" direction="column" align="center">
@@ -36,6 +41,25 @@ function App() {
           setDataSet(shuffle(toShuffle));
         }}>
           Shuffle
+      </Button>
+
+      <Button my="1vh" maxW="30vw" onClick={(e) => {
+          if(!running) {
+            setRunning(true);
+            algorithm.sort(dataSet, setDataSet);
+            algorithm.sort(dataSet, setDataSet).then(() => {
+              setRunning(false);
+            });
+          }
+          
+        }}>
+          Run
+      </Button>
+
+      <Button my="1vh" maxW="30vw" onClick={(e) => {
+          algorithm.stop();
+        }}>
+          Stop
       </Button>
       
     </Flex>
