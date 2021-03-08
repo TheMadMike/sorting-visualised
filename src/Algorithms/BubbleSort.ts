@@ -1,0 +1,44 @@
+import SortingAlgorithm from './SortingAlgorithm';
+
+import { sleep, swap } from './utility';
+
+class BubbleSort implements SortingAlgorithm {
+    stepTimeMs: number;
+
+    constructor(stepTimeMs: number = 500) {
+        this.stepTimeMs = stepTimeMs;
+    }
+
+    async sort(dataSet: number[], setDataSet: Function) {
+        await this.start();
+        let dataCopy = [...dataSet];
+        
+        let sorted = true;
+        do {
+            sorted = true;
+            for(let i = 0; i < (dataCopy.length-1); ++i) {
+                if(dataCopy[i] > dataCopy[i+1]) {
+                    swap(dataCopy, i, i+1);
+                    sorted = false;
+                }
+                await sleep(this.stepTimeMs);
+                setDataSet(dataCopy);
+
+                if(this.shouldBeRunning === false)
+                    return;
+            }
+        } while(!sorted);
+    }
+
+    private shouldBeRunning: boolean = true;
+
+    private async start() {
+        this.shouldBeRunning = true;
+    }
+    
+    async stop() {
+        this.shouldBeRunning = false;
+    }
+};
+
+export default BubbleSort;
