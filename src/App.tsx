@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
 import DataChart from './Components/DataChart';
+import StartStopButton from './Components/StartStopButton';
 
 import shuffle from './shuffle';
 import { generateDataSet } from './Algorithms/utility';
@@ -12,7 +13,6 @@ import algorithms from './algorithms';
 function App() {
   const [dataSet, setDataSet] = useState([1, 2, 3]);
   const [algorithm, setAlgorithm] = useState<SortingAlgorithm>(algorithms.get('BubbleSort') as SortingAlgorithm);
-  const [running, setRunning] = useState(false);
   const [stepTimeMs, setStepTime] = useState(10);
 
   useEffect(() => {
@@ -43,24 +43,16 @@ function App() {
           Shuffle
       </Button>
 
-      <Button my="1vh" maxW="30vw" onClick={(e) => {
-          if(!running) {
-            setRunning(true);
+      <StartStopButton onClick={
+        (data: {shouldBeRunning: boolean}) => {
+          if(data.shouldBeRunning) {
             algorithm.sort(dataSet, setDataSet);
-            algorithm.sort(dataSet, setDataSet).then(() => {
-              setRunning(false);
-            });
+            algorithm.sort(dataSet, setDataSet);
+          } else {
+            algorithm.stop();
           }
-          
-        }}>
-          Run
-      </Button>
-
-      <Button my="1vh" maxW="30vw" onClick={(e) => {
-          algorithm.stop();
-        }}>
-          Stop
-      </Button>
+        }
+      } />
       
     </Flex>
   );
