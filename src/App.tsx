@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
 import DataChart from './Components/DataChart';
@@ -11,7 +11,7 @@ import { generateDataSet } from './Algorithms/utility';
 import SortingAlgorithm from './Algorithms/SortingAlgorithm';
 import algorithms from './algorithms';
 
-function App() {
+const App = () => {
   const [dataSet, setDataSet] = useState([1, 2, 3]);
   const [algorithm, setAlgorithm] = useState<SortingAlgorithm>(algorithms.get('BubbleSort') as SortingAlgorithm);
   const [stepTimeMs, setStepTime] = useState(10);
