@@ -16,7 +16,7 @@ class QuickSort extends SortingAlgorithm {
             let end = stack.pop() as number;
             let start = stack.pop() as number;
 
-            let pivotIndex = this.partition(dataCopy, start, end);
+            let pivotIndex = await this.partition(dataCopy, start, end, setDataSet);
 
             if(pivotIndex - 1 > start) {
                 stack.push(start);
@@ -27,21 +27,23 @@ class QuickSort extends SortingAlgorithm {
                 stack.push(end);
             }
 
-            await sleep(this.stepTimeMs);
-            setDataSet(dataCopy);
+            if(!this.shouldBeRunning) return;
         }
 
         setDataSet(dataCopy);
     }
 
-    private partition(array: number[], start: number, end: number) {
+    private async partition(array: number[], start: number, end: number, setDataSet: Function) {
         let pivot = { value: array[end], index: start };
 
         for(let i = start; i < end; ++i) {
             if(array[i] < pivot.value) {
                 swap(array, i, pivot.index);
                 pivot.index += 1;
+                setDataSet(array);
             }
+
+            await sleep(this.stepTimeMs);
         }
 
         //put the pivot.value in the "middle"
