@@ -1,4 +1,3 @@
-import React from 'react';
 import BubbleSort from './BubbleSort';
 
 describe('BubbleSort', () => {

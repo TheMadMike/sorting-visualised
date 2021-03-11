@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, cleanup, queryByTestId } from '@testing-library/react';
 import DataChart from './DataChart';
 

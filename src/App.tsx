@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Flex, Button, Input } from '@chakra-ui/react';
 
 import DataChart from './Components/DataChart';

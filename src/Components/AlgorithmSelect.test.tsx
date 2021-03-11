@@ -1,4 +1,4 @@
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import AlgorithmSelect from './AlgorithmSelect';
 
 afterEach(cleanup);
